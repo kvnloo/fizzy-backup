@@ -41,6 +41,13 @@ env:
     # the hosted MCP server, whose delegation exchange runs as the fizzy-mcp-server client.
     OAUTH_ACCEPTANCE_ENABLED: "true"
     OAUTH_CIMD_ENABLED: "true"
+    # The open tier of Client ID Metadata Documents: any https host that publishes a valid document may request
+    # consent, with a warning that we don't know the app, a registration quota per registrable domain and a bound on
+    # concurrent fetches (Oauth::ClientMetadata). Incident scope: unsetting it refuses new authorizations for hosts
+    # that aren't allowlisted, clients already provisioned from one included, while grants they already hold keep
+    # working. It's no knob for a fetch or SSRF incident, since allowlisted hosts keep fetching: that's
+    # OAUTH_CIMD_ENABLED.
+    OAUTH_CIMD_OPEN_REGISTRATION: "true"
     FIZZY_OAUTH_MCP_RESOURCES: "https://mcp.fizzy.do/mcp"
   secret:
     - RAILS_MASTER_KEY
